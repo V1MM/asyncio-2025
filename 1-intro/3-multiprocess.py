@@ -24,12 +24,12 @@ def make_burger(student_id):
     end = time.time()
 
     print(f"[{datetime.now().strftime('%H:%M:%S')}] เสร็จแล้ว! เบอร์เกอร์ของนักเรียนคนที่ {student_id} เริ่มตอน [{start_time.strftime('%H:%M:%S')}] จบตอน [{end_time.strftime('%H:%M:%S')}] ระยะเวลา {end-start:.2f}" )
-    
+
 def main():
     start = time.time()
     
     processes = []
-    for i in range(1, 5):
+    for i in range(1, 6):
         p = Process(target=make_burger, args=(i,))
         processes.append(p)
         p.start()
