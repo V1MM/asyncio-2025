@@ -15,7 +15,7 @@ async def fetch_ability_detail(url):
     ability_name = f"{data['name']:<15}"
     pokemon_list = [countname['pokemon']['name'] for countname in data["pokemon"]]
 
-    results = f'{ability_name:<15} > {len(pokemon_list):<3} Pokemon { ",".join(pokemon_list)} '
+    results = f'{ability_name:<15} > {len(pokemon_list):<3} Pokemon { ",".join(pokemon_list[:5])} '
     
     return results
 
