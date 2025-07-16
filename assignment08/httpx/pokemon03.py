@@ -12,7 +12,6 @@ async def fetch(name) :
         print(f"Name : {data['name'].title()}")
         print(f"ID   : {data['id']} ") 
         print(f"Type : {[t['type']['name'] for t in data['types']]}")
-        end = time.time()
 
 async def main() :
     start = time.time()
