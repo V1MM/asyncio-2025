@@ -18,38 +18,49 @@ import time
 
 async def customer(name, items, queue):
     print(f'{time.ctime()} : [{name}] finish shopping : {items}')
+   # print(f'{time.ctime()} : [{name}] ready to put order')
     await queue.put((name, items))
+    #print(f'{time.ctime()} : [{name}] order placed')
     
 async def cashier(name, process_time, queue):
     while True:
+        
         customer_info = await queue.get()
         if customer_info is None:
             break
         customer_name, items = customer_info
         print(f'{time.ctime()} : [{name}] : processing {customer_name} with orders {items}')
         for item in items:
-            await asyncio.sleep(process_time)
-            print(f'{time.ctime()} >>>> {name} : processed {item} for {customer_name}')
-        print(f'{time.ctime()} : [{name}] finished {customer_name}')
+            await asyncio.sleep(process_time) 
+            #print(f'{time.ctime()} >>>> {name} : processed {item} for {customer_name} time taken {process_time} seconds')
+        print(f'{time.ctime()} : [{name}] finished {customer_name} Total time taken {process_time * len(items)} seconds')
         queue.task_done()
-    print(f'{time.ctime()} : [{name}] closing down')
+    print(f'{time.ctime()} : [{name}] closing down ')
+    #total time all
+    print(f'{time.ctime()} : [{name}] Total time taken by {name} : {process_time * 5 * 100} seconds')
 
 async def main():
+    start_time = time.time()
     # Create a queue for customer orders
-    order_queue = asyncio.Queue()
+    order_queue = asyncio.Queue(maxsize=5)
 
     # List of customers and their shopping items
     customer_list = [
-        ("Alice", ["Apple", "Banana", "Milk"]),
-        ("Bob", ["Bread", "Cheese"]),
-        ("Charlie", ["Eggs", "Juice", "Butter"])
+        ("Liam", ["Milk", "Eggs", "Bread"]),
+        ("Olivia", ["Cereal", "Coffee", "Sugar"]),
+        ("Noah", ["Apples", "Bananas", "Oranges"]),
+        ("Emma", ["Chicken", "Rice", "Broccoli"]),
+        ("Oliver", ["Pasta", "Sauce", "Cheese"]),
+        ("Charlotte", ["Yogurt", "Granola", "Berries"]),
+        ("Elijah", ["Steak", "Potatoes", "Asparagus"]),
+        ("Amelia", ["Juice", "Water", "Soda"]),
+        ("James", ["Paper Towels", "Soap", "Shampoo"]),
+        ("Sophia", ["Cookies", "Chips", "Crackers"]),
     ]
 
     # List of cashiers and their processing times per item
-    cashier_list = [
-        ("Cashier-1", 1),
-        ("Cashier-2", 2)
-    ]
+    process_times = [1,2]
+    cashier_list = [(f"Cashier-{i+1}", process_times[i]) for i in range(len(process_times))]
 
     # Start customer tasks: each customer puts their order in the queue
     customer_tasks = [
@@ -77,5 +88,7 @@ async def main():
     await asyncio.gather(*cashier_tasks)
 
     print(f'{time.ctime()} [Main] Supermarket is closed!')
+    #Total Time
+    print(f'{time.ctime()} [Main] Total time taken: {time.time() - start_time:.2f} seconds')
 
 asyncio.run(main())
