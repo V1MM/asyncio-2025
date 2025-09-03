@@ -23,21 +23,21 @@ async def customer(name, items, queue):
     #print(f'{time.ctime()} : [{name}] order placed')
     
 async def cashier(name, process_time, queue):
+    simulated_time = time.time()
     while True:
-        
         customer_info = await queue.get()
         if customer_info is None:
             break
         customer_name, items = customer_info
-        print(f'{time.ctime()} : [{name}] : processing {customer_name} with orders {items}')
+        print(f'{time.ctime(simulated_time)} : [{name}] : processing {customer_name} with orders {items}')
         for item in items:
-            await asyncio.sleep(process_time) 
-            #print(f'{time.ctime()} >>>> {name} : processed {item} for {customer_name} time taken {process_time} seconds')
-        print(f'{time.ctime()} : [{name}] finished {customer_name} Total time taken {process_time * len(items)} seconds')
+            # Simulate time passing without actually waiting
+            simulated_time += process_time
+            await asyncio.sleep(process_time)  
+        print(f'{time.ctime(simulated_time)} : [{name}] finished {customer_name} Total time taken {process_time * len(items)} seconds')
         queue.task_done()
-    print(f'{time.ctime()} : [{name}] closing down ')
-    #total time all
-    print(f'{time.ctime()} : [{name}] Total time taken by {name} : {process_time * 5 * 100} seconds')
+    print(f'{time.ctime(simulated_time)} : [{name}] closing down ')
+    print(f'{time.ctime(simulated_time)} : [{name}] Total time taken by {name} : {process_time * 5 * 100} seconds')
 
 async def main():
     start_time = time.time()
