@@ -1,3 +1,4 @@
+# ✅ Complete
 # Hint:
 # แก้โค้ดให้สามารถรัน หลาย task พร้อมกัน ได้ถูกต้อง
 # Result:
@@ -17,6 +18,10 @@ async def process():
     data = await fetch_data()
     print("Processing", data)
 
-tasks = [process() for _ in range(5)]
-asyncio.run(tasks)
+async def main():
+    
+   tasks = [process() for _ in range(5)]
+   await asyncio.gather(*tasks)
+
+asyncio.run(main())
 
