@@ -15,7 +15,11 @@ async def launch_rocket(student_id: str):
     - จำลองเวลาจรวดด้วย random delay 1-2 วินาที
     - print log ว่า rocket launched และ reached destination
     """
-    pass
+    delay = random.uniform(1,2)
+    await asyncio.sleep(delay)
+    print(f"Rocket {student_id} launched! ETA : {delay} seconds") 
+    print(f"Rocket {student_id} reached destination after {delay} seconds")
+
 
 @app.get("/fire/{student_id}")
 async def fire_rocket(student_id: str):
@@ -26,4 +30,14 @@ async def fire_rocket(student_id: str):
     - รอ random delay 1-2 วินาที ก่อนส่ง response
     - return dict {"message": ..., "time_to_target": ...}
     """
-    pass
+    if len(student_id) != 10 or not student_id.isdigit():
+        raise HTTPException(status_code=400, detail="Invalid student ID. Must be 10 digits.")
+    
+    delay = random.uniform(1,2)
+    asyncio.create_task(launch_rocket(student_id))
+    await asyncio.sleep(delay)
+    
+    return {
+        "message": f"Rocket {student_id} fired!",
+        "time_to_target": delay
+    }
