@@ -1,4 +1,5 @@
 # file: rocketapp.py
+#✅ Complete
 
 from fastapi import FastAPI, HTTPException
 import asyncio
@@ -17,9 +18,9 @@ async def launch_rocket(student_id: str):
     """
     delay = random.uniform(1,2)
     
-    await asyncio.sleep(delay)
-    print(f"Rocket {student_id} launched! ETA : {delay : .2f} seconds") 
     
+    print(f"Rocket {student_id} launched! ETA : {delay : .2f} seconds") 
+    await asyncio.sleep(delay)
     print(f"Rocket {student_id} reached destination after {delay : .2f} seconds")
 
 
@@ -37,9 +38,9 @@ async def fire_rocket(student_id: str):
     
     delay = random.uniform(1,2)
     asyncio.create_task(launch_rocket(student_id))
-    await asyncio.sleep(delay)
+    
     
     return {
         "message": f"Rocket {student_id} fired!",
-        "time_to_target": f"{delay:.2f}"
+        "time_to_target": round(delay, 2)
     }

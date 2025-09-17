@@ -1,3 +1,4 @@
+#✅ Complete
 # สร้างโปรแกรม อะซิงโครนัส ที่รัน countdown timers หลายตัวพร้อมกัน
 # นักศึกษาต้องสร้างฟังก์ชัน countdown(name, seconds) ที่
 #   1. พิมพ์ "Timer {name} starting for {seconds} seconds"
