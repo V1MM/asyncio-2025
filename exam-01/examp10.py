@@ -1,3 +1,4 @@
+# ✅ Complete
 # Hint:
 # โค้ดนี้จะพิมพ์ "All tasks scheduled" แล้วจบ ทันที
 # เพราะแม้จะ create_task() แต่ถ้าไม่ await มัน → main() จบก่อน → loop ถูกปิด → task ถูก cancel
@@ -24,6 +25,9 @@ async def main():
     tasks = []
     for i in range(3):
         tasks.append(asyncio.create_task(worker(f"Task-{i}", i+1)))
+    
+    results = await asyncio.gather(*tasks)
+    print("Results:", results)
     
     print("All tasks scheduled")
 

@@ -1,3 +1,4 @@
+# ✅ Complete
 # Hint:
 # ให้แก้ไขให้พิมพ์ Result: 5 ได้ถูกต้อง
 # Result:

@@ -1,3 +1,4 @@
+# ✅ Complete
 # Hint:
 # ปัญหา: asyncio.gather() จะ throw ข้อผิดพลาดทั้งหมด ไม่ใช่แค่ตัวแรก
 # ให้แก้ไขโค้ดเพื่อให้สามารถ จัดการข้อผิดพลาดแยกแต่ละ task ได้
@@ -11,8 +12,10 @@ async def risky_task():
 
 async def main():
     try:
-        await asyncio.gather(risky_task(), risky_task())
+        results = await asyncio.gather(risky_task(), risky_task(),return_exceptions=True)
+        print(results)      
         
     except Exception as e:
         print("Caught:", e)
+
 asyncio.run(main())

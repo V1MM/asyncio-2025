@@ -1,3 +1,4 @@
+# ✅ Complete
 # Hint:
 # จุดผิด: t.result() ถูกเรียกก่อน task เสร็จ → เกิด InvalidStateError
 # ให้แก้ไขโค้ดให้รอ task เสร็จก่อนแล้วจึงดึงผลลัพธ์
@@ -19,7 +20,10 @@ async def worker(i):
 
 async def main():
     tasks = [asyncio.create_task(worker(i)) for i in range(3)]
+    done,pending = await asyncio.wait(tasks)
     for t in tasks:
         t.result()
+    print("Result:", [t.result() for t in tasks])
+
 
 asyncio.run(main())
