@@ -51,7 +51,7 @@ async def main():
 
     # TODO: รอให้ทุก task เสร็จและเก็บผลลัพธ์ตามลำดับ task
     results = []
-    results = await asyncio.gather(*tasks)
+    results.append ( asyncio.gather(*tasks) )
 
 
     # TODO: แสดงผล start_time, time_to_target, end_time ของแต่ละ rocket ตามลำดับ task
